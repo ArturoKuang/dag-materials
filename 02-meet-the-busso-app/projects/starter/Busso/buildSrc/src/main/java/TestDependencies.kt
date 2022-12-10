@@ -48,7 +48,7 @@ fun runnerDeps(
 
 fun robolectricDeps(
 ): List<String> = mutableListOf<String>().apply {
-  add("org.robolectric:robolectric:4.3")
+  add("org.robolectric:robolectric:4.4")
 }
 
 fun thirdPartyTestingDeps(

@@ -44,9 +44,11 @@ dependencies {
   implementation(project(":libs:location:rx"))
   implementation(project(":libs:ui:navigation"))
   testImplementationOf(
-    junitDeps(ext = true)
+    junitDeps(ext = true),
+    robolectricDeps()
   )
+
   androidTestImplementationOf(
-    espressoDeps()
+    espressoDeps(),
   )
 }
