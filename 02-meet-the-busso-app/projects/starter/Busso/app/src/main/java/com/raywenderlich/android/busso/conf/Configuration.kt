@@ -34,4 +34,5 @@
 
 package com.raywenderlich.android.busso.conf
 
-const val BUSSO_SERVER_BASE_URL = "http://<YOUR SERVER IP>:8080/api/v1/"
+const val BUSSO_SERVER_BASE_URL = "http://192.168.50.81:8080/api/v1/"
+//                                 http://192.168.50.81:8080/api/v1/findBusStop/1.0/2.0?radius=200
