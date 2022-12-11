@@ -34,6 +34,11 @@
 package com.raywenderlich.android.daggerserverrepository
 
 fun main() {
-  // Get the reference to a Server instance
-  // Invoke the receive() method
+    // Get the reference to a Server instance
+    // Invoke the receive() method
+    val server = DaggerAppComponent
+        .create()
+        .server()
+
+    server.receive(Data("Hello"))
 }

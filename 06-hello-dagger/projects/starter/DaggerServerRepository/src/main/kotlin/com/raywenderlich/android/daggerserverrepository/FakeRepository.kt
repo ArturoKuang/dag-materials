@@ -35,10 +35,10 @@ package com.raywenderlich.android.daggerserverrepository
 
 class FakeRepository : Repository {
 
-  var collection: MutableList<Data> = mutableListOf()
+    var collection: MutableList<Data> = mutableListOf()
 
-  override fun save(data: Data) {
-    collection.add(data)
-    println("Added $data")
-  }
+    override fun save(data: Data) {
+        collection.add(data)
+        println("Added $data")
+    }
 }

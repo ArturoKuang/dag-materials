@@ -33,8 +33,11 @@
  */
 package com.raywenderlich.android.daggerserverrepository
 
-class Server() {
-  lateinit var repository: FakeRepository
+import javax.inject.Inject
+
+class Server @Inject constructor() {
+  @Inject
+  lateinit var repository: Repository
 
   fun receive(data: Data) {
     repository.save(data)

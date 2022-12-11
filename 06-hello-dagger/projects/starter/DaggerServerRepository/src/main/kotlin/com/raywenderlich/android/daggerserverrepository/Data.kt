@@ -34,4 +34,4 @@
 
 package com.raywenderlich.android.daggerserverrepository
 
-class Data
+data class Data(val name: String = "")
