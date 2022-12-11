@@ -30,6 +30,7 @@ android {
   }
 }
 dependencies {
+  testImplementation("junit:junit:4.12")
   kotlinStdLib()
   implementationOf(
     androidUI(
@@ -45,7 +46,8 @@ dependencies {
   implementation(project(":libs:ui:navigation"))
   testImplementationOf(
     junitDeps(ext = true),
-    robolectricDeps()
+    robolectricDeps(),
+    thirdPartyTestingDeps(mockitokotlin2 = true)
   )
 
   androidTestImplementationOf(
