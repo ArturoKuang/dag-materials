@@ -43,13 +43,12 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.raywenderlich.android.busso.di.LOCATION_OBSERVABLE
+import com.raywenderlich.android.busso.di.SplashActivityInjector
 import com.raywenderlich.android.location.api.model.LocationEvent
 import com.raywenderlich.android.location.api.model.LocationPermissionGranted
 import com.raywenderlich.android.location.api.model.LocationPermissionRequest
 import com.raywenderlich.android.ui.navigation.ActivityIntentDestination
 import com.raywenderlich.android.ui.navigation.Navigator
-import com.raywenderlich.android.ui.navigation.NavigatorImpl
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
@@ -68,15 +67,14 @@ class SplashActivity : AppCompatActivity() {
 
     private val handler = Handler(Looper.getMainLooper())
     private val disposables = CompositeDisposable()
-    private lateinit var locationObservable: Observable<LocationEvent>
-    private lateinit var navigator: Navigator
+    lateinit var locationObservable: Observable<LocationEvent>
+    lateinit var navigator: Navigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         makeFullScreen()
         setContentView(R.layout.activity_splash)
-        locationObservable = lookUp(LOCATION_OBSERVABLE)
-        navigator = NavigatorImpl(this)
+        SplashActivityInjector.inject(this)
     }
 
     override fun onStart() {
