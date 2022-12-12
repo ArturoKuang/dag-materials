@@ -41,7 +41,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.raywenderlich.android.busso.R
-import com.raywenderlich.android.busso.ui.view.main.comp
+import com.raywenderlich.android.busso.appComp
+import com.raywenderlich.android.busso.di.DaggerFragmentComponent
+import com.raywenderlich.android.busso.ui.view.main.activityComp
 import javax.inject.Inject
 
 /**
@@ -56,7 +58,12 @@ class BusStopFragment : Fragment() {
   lateinit var busStopListPresenter: BusStopListPresenter
 
   override fun onAttach(context: Context) {
-    context.comp?.inject(this)
+//    context.comp?.inject(this)
+    with(context) {
+      DaggerFragmentComponent.factory()
+        .create(applicationContext.appComp, activityComp) // HERE
+        .inject(this@BusStopFragment)
+    }
     super.onAttach(context)
   }
 

@@ -35,37 +35,49 @@
 package com.raywenderlich.android.busso.network
 
 import android.app.Activity
+import android.app.Application
 import com.google.gson.GsonBuilder
 import com.raywenderlich.android.busso.conf.BUSSO_SERVER_BASE_URL
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
+import okhttp3.OkHttpClient
 import okhttp3.OkHttpClient.Builder
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 private val CACHE_SIZE = 100 * 1024L // 100K
 
 @Module
-class NetworkModule { // HERE
-
-  @Provides
-  fun provideBussoEndPoint(activity: Activity): BussoEndpoint {
-    val cache = Cache(activity.cacheDir, CACHE_SIZE)
-    val okHttpClient = Builder()
-        .cache(cache)
-        .build()
-    val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl(BUSSO_SERVER_BASE_URL)
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(
-            GsonConverterFactory.create(
-                GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create()
+class NetworkModule {
+    // 1
+    @Provides
+    @Singleton
+    fun provideCache(application: Application): Cache =
+        Cache(application.cacheDir, 100 * 1024L)// 100K
+    // 2
+    @Provides
+    @Singleton
+    fun provideHttpClient(cache: Cache): OkHttpClient =
+        Builder()
+            .cache(cache)
+            .build()
+    // 3
+    @Provides
+    @Singleton
+    fun provideBussoEndPoint(httpClient: OkHttpClient): BussoEndpoint {
+        val retrofit: Retrofit = Retrofit.Builder()
+            .baseUrl(BUSSO_SERVER_BASE_URL)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(
+                GsonConverterFactory.create(
+                    GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create()
+                )
             )
-        )
-        .client(okHttpClient)
-        .build()
-    return retrofit.create(BussoEndpoint::class.java)
-  }
+            .client(httpClient)
+            .build()
+        return retrofit.create(BussoEndpoint::class.java)
+    }
 }

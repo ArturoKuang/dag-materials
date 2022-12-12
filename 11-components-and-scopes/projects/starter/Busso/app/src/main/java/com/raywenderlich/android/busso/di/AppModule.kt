@@ -93,10 +93,4 @@ class AppModule {
   @Provides
   fun provideNavigator(activity: Activity): Navigator = NavigatorImpl(activity)
 
-  @Provides
-  fun provideLocationObservable(activity: Activity): Observable<LocationEvent> {
-    val locationManager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-    val geoLocationPermissionChecker = GeoLocationPermissionCheckerImpl(activity)
-    return provideRxLocationObservable(locationManager, geoLocationPermissionChecker)
-  }
 }
