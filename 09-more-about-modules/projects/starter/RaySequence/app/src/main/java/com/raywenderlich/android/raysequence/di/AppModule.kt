@@ -36,7 +36,7 @@
 
 package com.raywenderlich.android.raysequence.di
 
-import com.raywenderlich.android.raysequence.model.NaturalSequenceGenerator
+import com.raywenderlich.android.raysequence.model.FibonacciSequenceGenerator
 import com.raywenderlich.android.raysequence.model.SequenceGenerator
 import dagger.Module
 import dagger.Provides
@@ -44,8 +44,8 @@ import dagger.Provides
 @Module(includes = [AppBindings::class])
 object AppModule {
 
-  @Provides
-  fun provideSequenceGenerator(): SequenceGenerator<Int> =
-      NaturalSequenceGenerator(0)
+    @Provides
+    fun provideSequenceGenerator(): SequenceGenerator<Int> =
+        FibonacciSequenceGenerator(0)
 }
 
